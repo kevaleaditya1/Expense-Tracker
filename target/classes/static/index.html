@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    Expense Tracker
+</h1>
+<form id="expense">
+    <label>Title : </label>
+    <input type="text" name="title">
+    <br>
+    <label>Amount : </label>
+    <input type="number" name="amount">
+    <br>
+    <label>Category : </label>
+    <input type="text" name="category">
+    <br>
+    <label>Description : </label>
+    <input type="text" name="description">
+    <br>
+    <label>Date : </label>
+    <input type="date" name="date">
+    <br>
+    <button type="submit">submit</button>
+</form>
+<script>
+        document.getElementById("expense").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const expense = {
+        title: document.querySelector('[name="title"]').value,
+        amount: document.querySelector('[name="amount"]').value,
+        category: document.querySelector('[name="category"]').value,
+        description: document.querySelector('[name="description"]').value,
+        date: document.querySelector('[name="date"]').value
+    };
+
+        fetch("/expenses", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+    },
+        body: JSON.stringify(expense)
+    })
+        .then(response => response.json())
+        .then(data => {
+        console.log(data);
+        alert("Expense added successfully!");
+    });
+
+    });
+</script>
+</body>
+</html>
