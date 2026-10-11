@@ -1,0 +1,55 @@
+<div class="page">
+  <div class="login-card">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to your Expense Tracker</p>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          placeholder="you@example.com"
+          #emailField="ngModel"
+        />
+
+        @if (emailField.invalid && emailField.touched) {
+          <small>Please enter a valid email address.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          placeholder="Enter your password"
+          #passwordField="ngModel"
+        />
+
+        @if (passwordField.invalid && passwordField.touched) {
+          <small>Password must contain at least 6 characters.</small>
+        }
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+    <p [style.color]="isError ? 'red' : 'green'">
+      {{ message }}
+    </p>
+    <p class="register-link">
+      Don't have an account?
+      <a routerLink="/register">Create one</a>
+    </p>
+  </div>
+</div>
